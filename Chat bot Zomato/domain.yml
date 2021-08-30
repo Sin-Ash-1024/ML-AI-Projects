@@ -1,0 +1,116 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 0
+  carry_over_slots_to_new_session: true
+intents:
+- get_email
+- affirm
+- greet
+- get_price
+- restaurant_search
+- goodbye
+- deny
+- stop
+entities:
+- cuisine
+- email
+- location
+- people
+- price
+slots:
+  location:
+    type: text
+    influence_conversation: true
+  cuisine:
+    type: categorical
+    influence_conversation: true
+    values:
+    - chinese
+    - italian
+    - north indian
+    - south indian
+    - american
+    - mexican
+  email:
+    type: text
+    influence_conversation: true
+  location_found:
+    type: categorical
+    influence_conversation: true
+    values:
+    - notfound
+    - tier3
+    - found
+  price:
+    type: categorical
+    influence_conversation: true
+    values:
+    - lesser than 300
+    - between 300 to 700
+    - more than 700
+responses:
+  utter_ask_howcanhelp:
+  - text: how can I help you?
+  utter_ask_location:
+  - text: In what location?
+  utter_default:
+  - text: Sorry ,i cannot understand
+  utter_goodbye:
+  - text: goodbye :(
+  - text: Bye-bye
+  utter_greet:
+  - text: hey there! How may i help you
+  - text: Hi, How can I help you!
+  - text: Hey, How is it going How May I help you Today
+  utter_ask_budget:
+  - text: What's the average budget for two people
+    buttons:
+    - title: lesser than 300
+      payload: lesser than 300
+    - title: between 300 to 700
+      payload: between 300 to 700
+    - title: more than 700
+      payload: more than 700
+  utter_location_notfound:
+  - text: Sorry, location not found. Please specify the location again
+  utter_foodie_not_working:
+  - text: Sorry, Foodie is not working in this area. Can you please suggest some other location
+  utter_ask_whethermail:
+  - text: Should I mail you all the details
+  utter_ask_mail:
+  - text: To what email address should I send the restaurant details
+  - text: Please share the recipient email address
+  utter_final_bye:
+  - text: Okay!Bon Appetit!
+  utter_ask_cuisine:
+  - text: What kind of cuisine would you like to have
+    buttons:
+    - title: "Chinese"
+      payload: "chinese"
+    - title: "Mexican"
+      payload: "mexican"
+    - title: "Italian"
+      payload: "italian"
+    - title: "Thai"
+      payload: "thai"
+    - title: "American"
+      payload: "american"
+    - title: "North Indian"
+      payload: "north indian"
+actions:
+- action_check_location
+- action_search_restaurants
+- actions.ActionSearchRestaurants
+- email_restaurant_details
+- utter_ask_budget
+- utter_ask_cuisine
+- utter_ask_howcanhelp
+- utter_ask_location
+- utter_ask_mail
+- utter_ask_whethermail
+- utter_default
+- utter_final_bye
+- utter_foodie_not_working
+- utter_goodbye
+- utter_greet
+- utter_location_notfound
